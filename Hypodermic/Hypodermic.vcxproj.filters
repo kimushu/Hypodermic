@@ -71,6 +71,9 @@
     <ClInclude Include="As.h">
       <Filter>Descriptors\Operations</Filter>
     </ClInclude>
+    <ClInclude Include="AsGroup.h">
+      <Filter>Descriptors\Operations</Filter>
+    </ClInclude>
     <ClInclude Include="AsSelf.h">
       <Filter>Descriptors\Operations</Filter>
     </ClInclude>
@@ -198,6 +201,9 @@
     <ClInclude Include="IsSupportedArgument.h">
       <Filter>Traits</Filter>
     </ClInclude>
+    <ClInclude Include="DefaultBaseResolver.h">
+      <Filter>Traits</Filter>
+    </ClInclude>
     <ClInclude Include="RuntimeRegistrationBuilder.h">
       <Filter>Registrations</Filter>
     </ClInclude>
@@ -278,6 +284,9 @@
       <Filter>Meta</Filter>
     </ClInclude>
     <ClInclude Include="MetaIdentity.h">
+      <Filter>Meta</Filter>
+    </ClInclude>
+    <ClInclude Include="MetaPack.h">
       <Filter>Meta</Filter>
     </ClInclude>
     <ClInclude Include="MetaPair.h">

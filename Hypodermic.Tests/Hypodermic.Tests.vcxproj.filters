@@ -59,6 +59,9 @@
     <ClCompile Include="RuntimeRegistrationTests.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="GroupRegistrationTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Tests">

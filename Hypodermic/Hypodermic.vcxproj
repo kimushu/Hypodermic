@@ -173,6 +173,7 @@
     <ClInclude Include="MetaIdentity.h" />
     <ClInclude Include="MetaInsert.h" />
     <ClInclude Include="MetaMap.h" />
+    <ClInclude Include="MetaPack.h" />
     <ClInclude Include="MetaPair.h" />
     <ClInclude Include="Named.h" />
     <ClInclude Include="NamedTypeAlias.h" />
@@ -185,6 +186,7 @@
     <ClInclude Include="ArgumentResolver.h" />
     <ClInclude Include="ArgumentPack.h" />
     <ClInclude Include="As.h" />
+    <ClInclude Include="AsGroup.h" />
     <ClInclude Include="AsSelf.h" />
     <ClInclude Include="AutowireableConstructor.h" />
     <ClInclude Include="AutowireableConstructorRegistrationDescriptor.h" />
@@ -198,6 +200,7 @@
     <ClInclude Include="ContainerBuilder.h" />
     <ClInclude Include="ContainerInstanceRegistration.h" />
     <ClInclude Include="ContainerInstanceRegistrationActivator.h" />
+    <ClInclude Include="DefaultBaseResolver.h" />
     <ClInclude Include="DependencyActivationException.h" />
     <ClInclude Include="DependencyFactories.h" />
     <ClInclude Include="DependencyFactory.h" />
