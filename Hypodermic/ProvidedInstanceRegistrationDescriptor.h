@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Hypodermic/As.h"
+#include "Hypodermic/AsGroup.h"
 #include "Hypodermic/AsSelf.h"
 #include "Hypodermic/Log.h"
 #include "Hypodermic/Named.h"
@@ -15,11 +16,13 @@ namespace Hypodermic
     template <class TDescriptorInfo>
     class ProvidedInstanceRegistrationDescriptor : public RegistrationDescriptorBase< ProvidedInstanceRegistrationDescriptor< TDescriptorInfo >, TDescriptorInfo >,
                                                    public RegistrationDescriptorOperations::As< ProvidedInstanceRegistrationDescriptor< TDescriptorInfo >, TDescriptorInfo >,
+                                                   public RegistrationDescriptorOperations::AsGroup< ProvidedInstanceRegistrationDescriptor< TDescriptorInfo >, TDescriptorInfo >,
                                                    public RegistrationDescriptorOperations::AsSelf< ProvidedInstanceRegistrationDescriptor< TDescriptorInfo >, TDescriptorInfo >,
                                                    public RegistrationDescriptorOperations::Named< ProvidedInstanceRegistrationDescriptor< TDescriptorInfo >, TDescriptorInfo >,
                                                    public RegistrationDescriptorOperations::UseIfNone< ProvidedInstanceRegistrationDescriptor< TDescriptorInfo >, TDescriptorInfo >
     {
         friend class RegistrationDescriptorOperations::As< ProvidedInstanceRegistrationDescriptor< TDescriptorInfo >, TDescriptorInfo >;
+        friend class RegistrationDescriptorOperations::AsGroup< ProvidedInstanceRegistrationDescriptor< TDescriptorInfo >, TDescriptorInfo >;
         friend class RegistrationDescriptorOperations::AsSelf< ProvidedInstanceRegistrationDescriptor< TDescriptorInfo >, TDescriptorInfo >;
         friend class RegistrationDescriptorOperations::Named< ProvidedInstanceRegistrationDescriptor< TDescriptorInfo >, TDescriptorInfo >;
         friend class RegistrationDescriptorOperations::UseIfNone< ProvidedInstanceRegistrationDescriptor< TDescriptorInfo >, TDescriptorInfo >;

@@ -7,6 +7,7 @@
 #include "Hypodermic/MetaIdentity.h"
 #include "Hypodermic/MetaInsert.h"
 #include "Hypodermic/MetaMap.h"
+#include "Hypodermic/MetaPack.h"
 #include "Hypodermic/MetaPair.h"
 #include "Hypodermic/ProvidedDependencyTag.h"
 #include "Hypodermic/ProvidedInstanceDependencyTag.h"
@@ -94,6 +95,31 @@ namespace Hypodermic
         template <class TBase>
         struct IsBaseRegistered : MetaContains< RegisteredBases, TBase >
         {
+        };
+
+        template <template <class...> class TGroup, template <class> class TBaseResolver>
+        struct RegisterGroup
+        {
+        private:
+            template <class... TItems>
+            static auto deduceItems(TGroup< TItems... >*)
+                -> MetaPack< typename TBaseResolver<TItems>::Type... >
+            {
+            }
+
+            typedef decltype(deduceItems(static_cast< InstanceType* >(nullptr))) TPack;
+
+        public:
+            typedef RegistrationDescriptorInfo
+            <
+                InstanceType,
+                InstanceLifetime::value,
+                SelfRegistrationTag,
+                FallbackRegistrationTag,
+                typename std::conditional< (TPack::count > 0), typename MetaInsert< RegisteredBases, MetaPair< TPack, MetaIdentity< TPack > > >::Type, RegisteredBases >::type,
+                Dependencies
+            >
+            Type;
         };
 
         template <class TDependency>

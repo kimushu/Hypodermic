@@ -14,6 +14,7 @@ set(Hypodermic_headers
     ArgumentPack.h
     ArgumentResolver.h
     As.h
+    AsGroup.h
     AsSelf.h
     AutowireableConstructor.h
     AutowireableConstructorRegistrationDescriptor.h
@@ -28,6 +29,7 @@ set(Hypodermic_headers
     ContainerBuilder.h
     ContainerInstanceRegistration.h
     ContainerInstanceRegistrationActivator.h
+    DefaultBaseResolver.h
     DependencyActivationException.h
     DependencyFactories.h
     DependencyFactory.h
@@ -63,6 +65,7 @@ set(Hypodermic_headers
     MetaIdentity.h
     MetaInsert.h
     MetaMap.h
+    MetaPack.h
     MetaPair.h
     Named.h
     NamedTypeAlias.h
