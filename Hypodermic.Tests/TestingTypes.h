@@ -228,5 +228,31 @@ namespace Testing
         std::function< std::shared_ptr< ILoader >() > factory;
     };
 
+    template <class... TBases>
+    class IGroup : public TBases...
+    {
+    };
+
+    template <class TItem>
+    class IFilter
+    {
+    public:
+        virtual ~IFilter() = default;
+    };
+
+    template <class... TItems>
+    class IGroupWithFilter : public IFilter<TItems>...
+    {
+    };
+
+    class TypeWithGroups : public IGroup<BaseType1, BaseType2>,
+                           public IGroupWithFilter<int, char>
+    {
+    };
+
+    class TypeWithEmptyGroup : public IGroup<>
+    {
+    };
+
 } // namespace Testing
 } // namespace Hypodermic
