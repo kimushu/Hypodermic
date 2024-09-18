@@ -2,6 +2,7 @@
 
 #include "Hypodermic/DefaultBaseResolver.h"
 #include "Hypodermic/EnforceBaseOf.h"
+#include "Hypodermic/MetaPack.h"
 #include "Hypodermic/TypeAliasKey.h"
 
 
@@ -28,19 +29,20 @@ namespace RegistrationDescriptorOperations
         >
         ::Type& asGroup()
         {
-            return asGroupItems< TGroup, TBaseResolver, TDelayedDescriptor >(static_cast<InstanceType*>(nullptr));
+            typedef typename TDescriptorInfo::template RegisterGroup< TGroup, TBaseResolver >::PackType PackType;
+            return asGroupItems< TGroup, TBaseResolver, TDelayedDescriptor >(PackType{});
         }
 
     private:
-        template <template <class...> class TGroup, template <class> class TBaseResolver, class TDelayedDescriptor, class... TItems>
+        template <template <class...> class TGroup, template <class> class TBaseResolver, class TDelayedDescriptor, class... TBases>
         typename TDelayedDescriptor::template UpdateDescriptor
         <
             typename TDescriptorInfo::template RegisterGroup< TGroup, TBaseResolver >::Type
         >
-        ::Type& asGroupItems(TGroup<TItems...>*)
+        ::Type& asGroupItems(MetaPack< TBases... >)
         {
             auto descriptor = static_cast< TDescriptor* >(this);
-            addGroupItem< TBaseResolver, TItems... >(descriptor);
+            addGroupItem< TBases... >(descriptor);
 
             auto updatedDescriptor = descriptor->template createUpdate< typename TDescriptorInfo::template RegisterGroup< TGroup, TBaseResolver >::Type >();
             descriptor->registrationDescriptorUpdated()(updatedDescriptor);
@@ -48,16 +50,14 @@ namespace RegistrationDescriptorOperations
             return *updatedDescriptor;
         }
 
-        template <template <class> class TBaseResolver>
+        template <int = 0>
         void addGroupItem(TDescriptor*)
         {
         }
 
-        template <template <class> class TBaseResolver, class TFirst, class... TOthers>
+        template <class TBase, class... TOthers>
         void addGroupItem(TDescriptor* descriptor)
         {
-            typedef typename TBaseResolver<TFirst>::Type TBase;
-
             Extensions::EnforceBaseOf< TDescriptorInfo, TBase, InstanceType >::act();
 
             descriptor->addTypeIfMissing(createKeyForType< TBase >(), [](const std::shared_ptr< void >& x)
@@ -67,7 +67,7 @@ namespace RegistrationDescriptorOperations
                 return instanceStaticType;
             });
 
-            addGroupItem< TBaseResolver, TOthers... >(descriptor);
+            addGroupItem< TOthers... >(descriptor);
         }
 
     protected:

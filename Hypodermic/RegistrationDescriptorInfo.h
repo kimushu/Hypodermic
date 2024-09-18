@@ -103,20 +103,20 @@ namespace Hypodermic
         private:
             template <class... TItems>
             static auto deduceItems(TGroup< TItems... >*)
-                -> MetaPack< typename TBaseResolver<TItems>::Type... >
+                -> MetaPack< typename TBaseResolver< TItems >::Type... >
             {
             }
 
-            typedef decltype(deduceItems(static_cast< InstanceType* >(nullptr))) TPack;
-
         public:
+            typedef decltype(deduceItems(static_cast< InstanceType* >(nullptr))) PackType;
+
             typedef RegistrationDescriptorInfo
             <
                 InstanceType,
                 InstanceLifetime::value,
                 SelfRegistrationTag,
                 FallbackRegistrationTag,
-                typename std::conditional< (TPack::count > 0), typename MetaInsert< RegisteredBases, MetaPair< TPack, MetaIdentity< TPack > > >::Type, RegisteredBases >::type,
+                typename std::conditional< (PackType::count > 0), typename MetaInsert< RegisteredBases, MetaPair< PackType, MetaIdentity< PackType > > >::Type, RegisteredBases >::type,
                 Dependencies
             >
             Type;
