@@ -60,6 +60,7 @@ namespace Hypodermic
             {
                 m_scope = std::make_shared< RegistrationScope >();
                 m_parentScope->copyTo(*m_scope);
+                m_parentScope.reset();
             }
 
             return *m_scope;
